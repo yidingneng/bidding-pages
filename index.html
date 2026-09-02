@@ -218,6 +218,31 @@
   .project-name { font-weight: 500; color: var(--primary); }
   .source { color: var(--text-light); font-size: 12px; }
 
+  /* 返回顶部按钮 */
+  .back-top {
+    display: block;
+    text-align: center;
+    margin: 4px 0 20px;
+  }
+  .back-top a {
+    display: inline-block;
+    padding: 6px 20px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid #c3d2f9;
+    border-radius: 20px;
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .back-top a:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .back-top a::before { content: "↑ "; }
+
   .link {
     color: var(--primary);
     text-decoration: none;
@@ -359,11 +384,13 @@
           <td>—</td>
           <td><span class="tag tag-xb">更正</span></td>
           <td>8月6日更正</td>
-          <td><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005002/20260806/1661458674541178880.html" target="_blank">涪陵区交易网 ↗</a></td>
+          <td>          <a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005002/20260806/1661458674541178880.html" target="_blank">涪陵区交易网 ↗</a></td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="section-title" id="section-fuling-platform">
     <span class="icon" style="background: var(--accent);"></span>
@@ -486,12 +513,13 @@
           <td><span class="tag tag-xb">遴选</span></td>
           <td>2026-08-25</td>
           <td>进行中</td>
-          <td><a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/202608/t20260825_15978368.html" target="_blank">涪陵区政府网</a></td>
+          <td>          <a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/202608/t20260825_15978368.html" target="_blank">涪陵区政府网</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="section-title" id="section-ai">
     <span class="icon"></span>
@@ -529,6 +557,8 @@
       </tbody>
     </table>
   </div>
+
+  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="section-title" id="section-operator">
     <span class="icon" style="background: var(--warning);"></span>
@@ -630,6 +660,8 @@
       </tbody>
     </table>
   </div>
+
+  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="footer">
     数据整理时间：2026年9月2日 09:00（定时任务自动更新）｜ 信息仅供参考，以官方公告为准<br>
