@@ -1,0 +1,835 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能体招标信息汇总（2026年8月26日-9月2日）</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-light: #e8eefc;
+    --accent: #0e9f6e;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* 头部 */
+  .header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e56db 50%, #2563eb 100%);
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 150px; height: 150px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .header h1 { font-size: 28px; margin-bottom: 8px; position: relative; z-index: 1; }
+  .header p { font-size: 15px; opacity: 0.9; position: relative; z-index: 1; }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-top: 12px;
+    position: relative; z-index: 1;
+  }
+
+  /* 统计卡片 */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: -30px auto 24px;
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+  }
+  .stat-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    text-align: center;
+    border-top: 4px solid var(--primary);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    background: #f8faff;
+  }
+  .stat-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+  }
+  .stat-card:nth-child(2) { border-top-color: var(--accent); }
+  .stat-card:nth-child(3) { border-top-color: var(--warning); }
+  .stat-card:nth-child(4) { border-top-color: var(--danger); }
+  .stat-card .num { font-size: 32px; font-weight: 700; color: var(--primary); }
+  .stat-card:nth-child(2) .num { color: var(--accent); }
+  .stat-card:nth-child(3) .num { color: var(--warning); }
+  .stat-card:nth-child(4) .num { color: var(--danger); }
+  .stat-card .label { font-size: 13px; color: var(--text-light); margin-top: 4px; }
+
+  /* 区块标题 */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 32px 0 16px;
+    color: var(--text);
+  }
+  .section-title .icon {
+    width: 8px; height: 28px;
+    background: var(--primary);
+    border-radius: 4px;
+  }
+  .section-title .sub { font-size: 13px; font-weight: 400; color: var(--text-light); }
+
+  /* 筛选栏 */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+  .filter-bar input {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+  }
+  .filter-bar input:focus { border-color: var(--primary); }
+  .filter-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .filter-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+
+  /* 表格 */
+  .table-wrap {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    background: #f8fafc;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+  tbody tr:hover { background: #f9fafb; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .tag-gk { background: #e0e7ff; color: #4338ca; }      /* 公开招标 */
+  .tag-xb { background: #d1fae5; color: #065f46; }      /* 询比/磋商 */
+  .tag-zb { background: #fef3c7; color: #92400e; }      /* 中标/成交 */
+  .tag-yg { background: #fee2e2; color: #991b1b; }      /* 预告/意向 */
+  .tag-zx { background: #e0f2fe; color: #075985; }      /* 询价 */
+  .tag-ct {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .ct-high { background: #1a56db; color: #fff; }      /* 高度适配 */
+  .ct-mid { background: #fef3c7; color: #92400e; }     /* 中度适配 */
+  .ct-low { background: #e5e7eb; color: #4b5563; }     /* 低适配/不适配 */
+  .ct-row { background: #eff6ff !important; }            /* 适配行高亮 */
+  .ct-row:hover { background: #dbeafe !important; }
+  .ct-low-row { background: #fafafa !important; }        /* 低适配行 */
+  .ct-low-row:hover { background: #f3f4f6 !important; }
+  .ct-reason { display: block; color: #9ca3af; font-size: 12px; margin-top: 2px; }
+
+  .region { white-space: nowrap; }
+  .project-name { font-weight: 500; color: var(--primary); }
+  .source { color: var(--text-light); font-size: 12px; }
+
+  .link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .link:hover { text-decoration: underline; }
+
+  /* 通知横幅 */
+  .notice {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #92400e;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  /* 涪陵区专题 */
+  .fuling-tip {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  .fuling-tip strong { color: var(--accent); }
+
+  /* 页脚 */
+  .footer {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 12px;
+    padding: 30px 0 40px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* 响应式 */
+  @media (max-width: 768px) {
+    .header h1 { font-size: 22px; }
+    table { font-size: 13px; }
+    thead th, tbody td { padding: 10px 8px; }
+    .stats { padding: 0 10px; }
+    .container { padding: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>智能体招标信息汇总</h1>
+  <p>统计周期：2026年8月26日 — 9月2日（最近7天）｜ 9月2日 09:00 自动更新</p>
+  <span class="badge">数据来源：中国招标网（bidchance.com）及政府采购网</span>
+</div>
+
+<div class="container">
+
+  <div class="stats">
+    <a class="stat-card" onclick="document.getElementById('section-fuling-it').scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="num">3</div>
+      <div class="label">涪陵区软件信息技术类项目</div>
+    </a>
+    <a class="stat-card" onclick="document.getElementById('section-fuling-platform').scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="num">5</div>
+      <div class="label">涪陵区发布平台</div>
+    </a>
+    <a class="stat-card" onclick="document.getElementById('section-ai').scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="num">11</div>
+      <div class="label">智能体相关招标/采购公告</div>
+    </a>
+    <a class="stat-card" onclick="document.getElementById('section-operator').scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="num">5</div>
+      <div class="label">运营商高度适配项目</div>
+    </a>
+  </div>
+
+  <div class="section-title" id="section-fuling-it">
+    <span class="icon" style="background: #dc2626;"></span>
+    涪陵区官网精选：软件和信息技术服务业相关项目
+    <span class="sub">数据来源：涪陵区公共资源交易网（cqggzy.com/fulingweb）</span>
+  </div>
+
+  <div class="notice" style="background: #fef2f2; border-color: #fecaca; color: #991b1b;">
+    <span>重点关注：</span>
+    <span>以下项目来自涪陵区公共资源交易网政府采购板块，招标文件中要求或适合"软件和信息技术服务业"企业投标，包括软件开发、信息系统集成、智慧应用系统等。<span class="tag-ct ct-high">运营商高度适配</span>项目重点推荐。</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>项目名称</th>
+          <th>项目编号</th>
+          <th>采购单位</th>
+          <th>预算金额</th>
+          <th>采购方式</th>
+          <th>截止时间</th>
+          <th>来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="ct-row">
+          <td class="project-name">城市道路清扫保洁智慧管理应用系统开发及建设服务采购<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>FLQ26C00039</td>
+          <td>涪陵区环境卫生服务中心</td>
+          <td>403.73万元</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-09-04 09:30<br><span style="color:#dc2626;font-size:12px;">（8月19日更正，原9月1日）</span></td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005001/20260811/1663278786420191232.html" target="_blank">招标公告 ↗</a><br><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005002/20260819/1666175568212963328.html" target="_blank">更正公告 ↗</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">校园网络及广播设备采购（第二次）<span class="tag-ct ct-mid">运营商可参与</span></td>
+          <td>FLQ26A00460</td>
+          <td>（涪陵区学校）</td>
+          <td>—</td>
+          <td><span class="tag tag-zx">询价</span></td>
+          <td>已开标（8月14日）</td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005001/20260810/1662845220964052992.html" target="_blank">涪陵区交易网 ↗</a></td>
+        </tr>
+        <tr>
+          <td class="project-name">计算机工学一体化学习工作站设施采购</td>
+          <td>FLQ26A00292</td>
+          <td>（涪陵区学校）</td>
+          <td>—</td>
+          <td><span class="tag tag-zb">已成交</span></td>
+          <td>已成交（8月17日）</td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005004/20260817/1665357195887554560_1.html" target="_blank">涪陵区交易网 ↗</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">重庆大学附属涪陵医院手术行为管理系统采购<span class="tag-ct ct-mid">运营商可参与</span></td>
+          <td>FLQ26C00035</td>
+          <td>重庆大学附属涪陵医院</td>
+          <td>—</td>
+          <td><span class="tag tag-xb">更正</span></td>
+          <td>8月6日更正</td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005002/20260806/1661458674541178880.html" target="_blank">涪陵区交易网 ↗</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title" id="section-fuling-platform">
+    <span class="icon" style="background: var(--accent);"></span>
+    涪陵区招标信息发布平台全览
+    <span class="sub">涪陵区不止一个发布平台，多平台联动发布</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>平台名称</th>
+          <th>网址</th>
+          <th>特点</th>
+          <th>建议</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="project-name">重庆市公共资源交易网-涪陵区分站（主平台）</td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/" target="_blank">cqggzy.com/fulingweb ↗</a></td>
+          <td>涪陵区政府采购、工程招标官方首发平台，含采购公告/答疑变更/结果公告/单一来源/保证金退还板块</td>
+          <td><strong>每日必查</strong>，重点盯采购公告+答疑变更</td>
+        </tr>
+        <tr>
+          <td class="project-name">重庆市政府采购网（区县板块）</td>
+          <td><a class="link" href="https://www.ccgp-chongqing.gov.cn/" target="_blank">ccgp-chongqing.gov.cn ↗</a></td>
+          <td>全市政府采购法定发布平台，涪陵区（FLQ）项目同步发布，可筛选区县级</td>
+          <td>补充查漏，可检索"涪陵"关键词</td>
+        </tr>
+        <tr>
+          <td class="project-name">中国政府采购网（国家级）</td>
+          <td><a class="link" href="http://www.ccgp.gov.cn/cggg/dfgg/" target="_blank">ccgp.gov.cn ↗</a></td>
+          <td>财政部主办，涪陵区公开招标项目在此同步</td>
+          <td>用于交叉验证、回溯历史公告</td>
+        </tr>
+        <tr>
+          <td class="project-name">涪陵区人民政府网（公示公告）</td>
+          <td><a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/" target="_blank">fl.gov.cn 公示公告 ↗</a></td>
+          <td>医院院内采购、比选、遴选等非政采项目常在此发布</td>
+          <td>适合运营商关注医院等企事业单位自主采购</td>
+        </tr>
+        <tr>
+          <td class="project-name">中国招标网 / 采购与招标网</td>
+          <td><a class="link" href="https://www.bidchance.com/" target="_blank">bidchance.com ↗</a></td>
+          <td>聚合全国各省市招标信息，含央企、国企、医院自主采购</td>
+          <td>适合发现全国智能体、智慧园区等潜在商机</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">
+    <span class="icon" style="background: var(--accent);"></span>
+    重庆涪陵区专题：最近7天招标公告
+    <span class="sub">涪陵区暂无直接以"智能体"命名的项目，以下为区内近期相关公告</span>
+  </div>
+
+  <div class="fuling-tip">
+    <strong>说明：</strong>以下信息来自涪陵区公共资源交易网（cqggzy.com/fulingweb）及重庆市政府采购网。其中"城市道路清扫保洁智慧管理应用系统开发和建设服务"为典型软件和信息技术服务业项目，预算403.73万元，<strong style="color:#dc2626;">8月19日发布更正公告，截止时间延期至9月4日09:30</strong>，且项目内容有更新需重新制作投标文件。<br>
+    <strong style="color:#dc2626;">最新提醒（8月31日）：</strong>涪陵区老年大学建设项目教学设备采购（FLQ26A00199）已发布<strong>暂停公告</strong>，原9月1日询价响应取消；重庆市涪陵区人民医院公立医院改革示范项目第一批医疗设备（FLQ26A00397）也已暂停。请留意官方后续公告。
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>项目名称</th>
+          <th>采购单位</th>
+          <th>类型</th>
+          <th>发布时间</th>
+          <th>状态</th>
+          <th>来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="ct-row">
+          <td class="project-name">中医智慧设备采购（CQS26A03902）<span class="tag-ct ct-mid">运营商可参与</span></td>
+          <td>重庆工贸职业技术学院（涪陵）</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-08-31</td>
+          <td>进行中（9月21日截止）</td>
+          <td><a class="link" href="http://www.ccgp.gov.cn/cggg/dfgg/gkzb/202608/t20260831_27235076.htm" target="_blank">中国政府采购网</a></td>
+        </tr>
+        <tr class="ct-low-row">
+          <td class="project-name">重庆大学附属涪陵医院医疗设备院内采购竞争性比选（2026年采购信息发布051号）<span class="tag-ct ct-low">适配度低</span><span class="ct-reason">✗ 医疗设备采购，非软件和信息技术服务类项目</span></td>
+          <td>重庆大学附属涪陵医院</td>
+          <td><span class="tag tag-xb">竞争性比选</span></td>
+          <td>2026-08-28</td>
+          <td>报名中（9月1日截止）</td>
+          <td><a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/202608/t20260828_15992210.html" target="_blank">涪陵区政府网</a></td>
+        </tr>
+        <tr class="ct-low-row">
+          <td class="project-name">重庆市涪陵精神卫生中心公立医院改革与高质量发展示范项目采购（FLQ26A00395）<span class="tag-ct ct-low">适配度低</span><span class="ct-reason">✗ 医疗设备采购项目，与软件信息技术服务无关</span></td>
+          <td>重庆市涪陵精神卫生中心</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-08-27</td>
+          <td>演示中（9月17日截止）</td>
+          <td><a class="link" href="http://www.ccgp.gov.cn/cggg/dfgg/gkzb/202608/t20260827_27213641.htm" target="_blank">中国政府采购网</a></td>
+        </tr>
+        <tr class="ct-low-row">
+          <td class="project-name">涪陵区老年大学建设项目教学设备采购（FLQ26A00199）<span class="tag-ct ct-low">适配度低</span><span class="ct-reason">✗ 教学硬件设备采购，且已暂停，非软件类项目</span></td>
+          <td>涪陵区老年大学</td>
+          <td><span class="tag tag-zb">已暂停</span></td>
+          <td>2026-08-31（暂停）</td>
+          <td><strong style="color:#dc2626;">已暂停</strong>（8月31日暂停公告）</td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005002/20260831/1670494043190374400.html" target="_blank">暂停公告 ↗</a></td>
+        </tr>
+        <tr class="ct-low-row">
+          <td class="project-name">重庆大学附属涪陵医院保洁服务外包项目（FLQ26C00040）<span class="tag-ct ct-low">适配度低</span><span class="ct-reason">✗ 保洁服务外包，非软件和信息技术类</span></td>
+          <td>重庆大学附属涪陵医院</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-08-25</td>
+          <td>演示中（9月18日截止）</td>
+          <td><a class="link" href="http://www.ccgp.gov.cn/cggg/dfgg/gkzb/202608/t20260825_27202809.htm" target="_blank">中国政府采购网</a></td>
+        </tr>
+        <tr class="ct-low-row">
+          <td class="project-name">重庆大学附属涪陵医院医用耗材（试剂）遴选公告012号<span class="tag-ct ct-low">适配度低</span><span class="ct-reason">✗ 医用耗材采购，与软件服务无关</span></td>
+          <td>重庆大学附属涪陵医院</td>
+          <td><span class="tag tag-xb">遴选</span></td>
+          <td>2026-08-25</td>
+          <td>进行中</td>
+          <td><a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/202608/t20260825_15978368.html" target="_blank">涪陵区政府网</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="section-title" id="section-ai">
+    <span class="icon"></span>
+    全国智能体招标公告（最近7天）
+    <span class="sub">按公告发布时间排序</span>
+  </div>
+
+  <div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="输入关键词筛选，如：智能体、教育、保险、园区...">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="gk">招标</button>
+    <button class="filter-btn" data-filter="zb">中标/成交</button>
+    <button class="filter-btn" data-filter="yg">预告/意向</button>
+  </div>
+
+  <div class="notice">
+    <span>提示：</span>
+    <span>中国招标网（bidchance.com）的公告详情需注册会员后查看完整信息，以下信息基于公开可检索的公告标题与摘要整理。部分项目为AI/信息化类，与智能体相关。</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>项目名称</th>
+          <th>采购单位</th>
+          <th>地区</th>
+          <th>类型</th>
+          <th>发布时间</th>
+          <th>来源</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <!-- 数据由 JS 渲染 -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title" id="section-operator">
+    <span class="icon" style="background: var(--warning);"></span>
+    适合运营商（中国电信等）投标的项目
+    <span class="sub">信息化系统、智慧园区、智能体平台等运营商主营业务相关</span>
+  </div>
+
+  <div class="notice" style="background: #eef2ff; border-color: #c7d2fe; color: #3730a3;">
+    <span>标记说明：</span>
+    <span><span class="tag-ct ct-high">运营商高度适配</span> = 中国电信核心业务领域（云网服务、系统集成、智能体平台、智慧城市/园区），建议重点关注；<span class="tag-ct ct-mid">运营商可参与</span> = 与运营商业务部分匹配，可作为拓展方向。</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>项目名称</th>
+          <th>采购单位</th>
+          <th>地区</th>
+          <th>类型</th>
+          <th>发布时间</th>
+          <th>适配说明</th>
+          <th>来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="ct-row">
+          <td class="project-name">中电信数字城市·交通管理值班辅助智能体开发服务采购<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>中电信数字城市科技有限公司</td>
+          <td>河北/雄安</td>
+          <td><span class="tag tag-xb">询比</span></td>
+          <td>2026-08-27</td>
+          <td>电信系企业自有项目，智慧交通+智能体</td>
+          <td><a class="link" href="https://www.bidchance.com/info-gonggao-92d0a179a6398b53907be4740772f8f6.html" target="_blank">中国招标网</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">襄阳高新区人工智能赋能城市数字化转型建设项目（约3亿）<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>襄阳市智核智能网联科技有限公司</td>
+          <td>湖北</td>
+          <td><span class="tag tag-yg">预告（10月招标）</span></td>
+          <td>2026-08-25</td>
+          <td>AI智能体平台+城市级数智中枢，运营商重点关注</td>
+          <td><a class="link" href="https://www.163.com/dy/article/L5HDEKCI0511D6RL.html" target="_blank">网易</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">上汽资产河南总部基地智慧园区AI智能体智能化集成平台<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>上汽资产</td>
+          <td>河南</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-08-24</td>
+          <td>智慧园区+AI大模型多智能体，运营商集成能力强</td>
+          <td><a class="link" href="https://caifuhao.eastmoney.com/news/20260824171038539816040" target="_blank">东方财富网</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">华能资本永诚保险车险资源配置决策智能体建设<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>华能资本/永诚保险</td>
+          <td>上海</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-08-25</td>
+          <td>央企金融AI智能体，需云网+AI能力</td>
+          <td><a class="link" href="https://www.bidchance.com/info-gonggao-f46c7e7074545930ca27742d9c6d00d5.html" target="_blank">中国招标网</a></td>
+        </tr>
+        <tr>
+          <td class="project-name">中国科学技术馆智能体应用开发和运营推广服务</td>
+          <td>中国科学技术馆</td>
+          <td>北京</td>
+          <td><span class="tag tag-zb">中标（可参考）</span></td>
+          <td>2026-08-26</td>
+          <td>国家级场馆智能体运营，已定标可关注后续</td>
+          <td><a class="link" href="https://www.bidchance.com/info-zhongbiao-9725d91279454e25b999ef73cc1b8fa1.html" target="_blank">中国招标网</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">鲁抗医药企业级智能体中台项目（184.9万元）<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>山东鲁抗医药</td>
+          <td>山东</td>
+          <td><span class="tag tag-zb">成交（可参考）</span></td>
+          <td>2026-08-28</td>
+          <td>企业级智能体中台，医药行业标杆</td>
+          <td><a class="link" href="https://www.sohu.com/a/1069953805_121319643" target="_blank">搜狐</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">2026年西城区网络安全运营与指挥中心项目<span class="tag-ct ct-high">运营商高度适配</span></td>
+          <td>西城区（北京）</td>
+          <td>北京</td>
+          <td><span class="tag tag-gk">公开招标</span></td>
+          <td>2026-08-26</td>
+          <td>安全运营中心，电信安全能力可切入</td>
+          <td><a class="link" href="https://www.bidchance.com/info-gonggao-27ecaeebbc62fc2af4b2799ca1a25235.html" target="_blank">中国招标网</a></td>
+        </tr>
+        <tr class="ct-row">
+          <td class="project-name">智慧辅助工作系统服务采购项目（询比）<span class="tag-ct ct-mid">运营商可参与</span></td>
+          <td>（某政企单位）</td>
+          <td>—</td>
+          <td><span class="tag tag-xb">询比</span></td>
+          <td>2026-08-26</td>
+          <td>智慧办公系统，政企信息服务典型场景</td>
+          <td><a class="link" href="https://www.bidchance.com/info-gonggao-24db1cdb8c4a1849dc12906ead4d2226.html" target="_blank">中国招标网</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    数据整理时间：2026年9月2日 09:00（定时任务自动更新）｜ 信息仅供参考，以官方公告为准<br>
+    数据来源：涪陵区公共资源交易网（cqggzy.com/fulingweb）、重庆市政府采购网（ccgp-chongqing.gov.cn）、中国政府采购网（ccgp.gov.cn）、中国招标网（bidchance.com）等
+  </div>
+
+</div>
+
+<script>
+  // 智能体招标数据
+  const data = [
+    {
+      name: "中电信数字城市科技有限公司2026年某单位交通管理值班辅助智能体开发服务采购项目",
+      unit: "中电信数字城市科技有限公司",
+      region: "河北/雄安",
+      type: "询比",
+      date: "2026-08-27",
+      source: "中国招标网",
+      link: "https://www.bidchance.com/info-gonggao-92d0a179a6398b53907be4740772f8f6.html",
+      ct: "high",
+      ctNote: "电信系企业自有项目"
+    },
+    {
+      name: "中国科学技术馆智能体应用开发和运营推广服务项目",
+      unit: "中国科学技术馆",
+      region: "北京",
+      type: "中标",
+      date: "2026-08-26",
+      source: "中国招标网",
+      link: "https://www.bidchance.com/info-zhongbiao-9725d91279454e25b999ef73cc1b8fa1.html",
+      ct: "low",
+      ctNote: "已中标定标，非当前可投机会",
+      ctReason: "已中标定标，非当前可投机会"
+    },
+    {
+      name: "天津职业大学学伴智能体采购项目（YFGP-2026-B-0272）",
+      unit: "天津职业大学",
+      region: "天津",
+      type: "公开招标",
+      date: "2026-08-25",
+      source: "中国招标网",
+      link: "https://www.bidchance.com/info-gonggao-66975e42089909bcb2e06a27fdc099e6.html",
+      ct: "mid",
+      ctNote: "教育智能体平台，运营商可参与"
+    },
+    {
+      name: "华能资本公司永诚财产保险车险资源配置决策智能体建设项目",
+      unit: "华能资本/永诚财产保险",
+      region: "上海",
+      type: "公开招标",
+      date: "2026-08-25",
+      source: "中国招标网",
+      link: "https://www.bidchance.com/info-gonggao-f46c7e7074545930ca27742d9c6d00d5.html",
+      ct: "high",
+      ctNote: "央企AI智能体，需云网+AI能力"
+    },
+    {
+      name: "清华大学2026年9月政府采购意向-AI智能体实践教学机器人",
+      unit: "清华大学",
+      region: "北京",
+      type: "预告",
+      date: "2026-08-25",
+      source: "中国招标网",
+      link: "https://www.bidchance.com/info-yugao-9edd331cfa1cb38b98b48cc7366aa233.html",
+      ct: "low",
+      ctNote: "采购意向阶段，具体需求未定",
+      ctReason: "仅采购意向，无正式招标文件，无法评估资格要求"
+    },
+    {
+      name: "基于人工智能的质量和标准化服务能力提升项目",
+      unit: "（智能体相关）",
+      region: "北京",
+      type: "公开招标",
+      date: "2026-08-26",
+      source: "中国招标网",
+      link: "https://www.bidchance.com/info-gonggao-2f8a80053469fd2981edcc5a4770fb65.html",
+      ct: "mid",
+      ctNote: "AI+标准化服务，运营商可参与"
+    },
+    {
+      name: "鲁抗医药企业级智能体中台项目",
+      unit: "山东鲁抗医药股份有限公司",
+      region: "山东",
+      type: "成交",
+      date: "2026-08-28",
+      source: "天眼查",
+      link: "https://www.sohu.com/a/1069953805_121319643",
+      ct: "high",
+      ctNote: "企业级智能体中台，系统集成领域"
+    },
+    {
+      name: "后备牛AI智能体重体高视觉系统项目",
+      unit: "贵州南方乳业股份有限公司",
+      region: "贵州",
+      type: "中标",
+      date: "2026-08-28",
+      source: "天眼查",
+      link: "https://baijiahao.baidu.com/s?id=1874816394314401158&wfr=spider&for=pc",
+      ct: "low",
+      ctNote: "农业养殖专用AI视觉，行业垂直度高",
+      ctReason: "已中标项目，且为农业养殖专用视觉算法，与电信主营业务关联度低"
+    },
+    {
+      name: "上汽资产河南总部基地智慧园区AI智能体智能化集成平台项目",
+      unit: "上汽资产",
+      region: "河南",
+      type: "公开招标",
+      date: "2026-08-24",
+      source: "东方财富网",
+      link: "https://caifuhao.eastmoney.com/news/20260824171038539816040",
+      ct: "high",
+      ctNote: "智慧园区+AI集成平台"
+    },
+    {
+      name: "2026年湖北第二师范学院高校教师实操能力提升培训——AI智能体与OPC模式培训项目",
+      unit: "湖北第二师范学院",
+      region: "湖北",
+      type: "询价",
+      date: "2026-08-31",
+      source: "学校官网",
+      link: "https://xcc.hue.edu.cn/2026/0831/c18375a202536/page.htm",
+      ct: "low",
+      ctNote: "教育培训服务，非系统集成",
+      ctReason: "属培训服务采购，电信无课程培训资质优势"
+    },
+    {
+      name: "襄阳高新区人工智能赋能城市数字化转型建设项目",
+      unit: "襄阳市智核智能网联科技有限公司",
+      region: "湖北",
+      type: "预告",
+      date: "2026-08-25",
+      source: "网易",
+      link: "https://www.163.com/dy/article/L5HDEKCI0511D6RL.html",
+      ct: "high",
+      ctNote: "城市级数智中枢，约3亿大单"
+    }
+  ];
+
+  const typeMap = {
+    "公开招标": "gk",
+    "询比": "xb",
+    "中标": "zb",
+    "成交": "zb",
+    "预告": "yg",
+    "询价": "zx"
+  };
+
+  const tagClass = {
+    "公开招标": "tag-gk",
+    "询比": "tag-xb",
+    "中标": "tag-zb",
+    "成交": "tag-zb",
+    "预告": "tag-yg",
+    "询价": "tag-zx"
+  };
+
+  const filters = { all: true, gk: false, zb: false, yg: false };
+
+  function render() {
+    const kw = document.getElementById('searchInput').value.trim().toLowerCase();
+    const html = data
+      .filter(item => {
+        const matchFilter = filters.all || filters[tagClass[item.type].replace('tag-', '')];
+        const matchKw = !kw || item.name.toLowerCase().includes(kw) || item.unit.toLowerCase().includes(kw) || item.region.toLowerCase().includes(kw);
+        return matchFilter && matchKw;
+      })
+      .map(item => {
+        const ctBadge = item.ct === 'high' ? '<span class="tag-ct ct-high">运营商高度适配</span>' : item.ct === 'mid' ? '<span class="tag-ct ct-mid">运营商可参与</span>' : item.ct === 'low' ? '<span class="tag-ct ct-low">适配度低</span>' : '';
+        const ctNote = item.ctNote ? `<br><span style="color:#6b7280;font-size:12px;">${item.ctNote}</span>` : '';
+        const ctReason = item.ctReason ? `<span class="ct-reason">✗ ${item.ctReason}</span>` : '';
+        const rowClass = item.ct === 'high' || item.ct === 'mid' ? ' class="ct-row"' : item.ct === 'low' ? ' class="ct-low-row"' : '';
+        return `
+        <tr${rowClass}>
+          <td class="project-name">${item.name}${ctBadge}${ctNote}${ctReason}</td>
+          <td>${item.unit}</td>
+          <td class="region">${item.region}</td>
+          <td><span class="tag ${tagClass[item.type]}">${item.type}</span></td>
+          <td>${item.date}</td>
+          <td><a class="link" href="${item.link}" target="_blank">${item.source} ↗</a></td>
+        </tr>`;
+      }).join('');
+    tbody.innerHTML = html;
+  }
+
+  // 筛选按钮
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      Object.keys(filters).forEach(k => filters[k] = false);
+      filters[f] = true;
+      render();
+    });
+  });
+
+  document.getElementById('searchInput').addEventListener('input', render);
+
+  render();
+</script>
+
+</body>
+</html>
