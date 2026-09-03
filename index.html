@@ -242,6 +242,31 @@
     border-color: var(--primary);
   }
   .back-top a::before { content: "↑ "; }
+  .back-top-inline {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  .back-top-inline a {
+    display: inline-block;
+    padding: 4px 14px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid #c3d2f9;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .back-top-inline a:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .back-top-inline a::before { content: "↑ "; }
 
   .link {
     color: var(--primary);
@@ -329,6 +354,7 @@
     <span class="icon" style="background: #dc2626;"></span>
     涪陵区官网精选：软件和信息技术服务业相关项目
     <span class="sub">数据来源：涪陵区公共资源交易网（cqggzy.com/fulingweb）</span>
+    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
   </div>
 
   <div class="notice" style="background: #fef2f2; border-color: #fecaca; color: #991b1b;">
@@ -390,12 +416,12 @@
     </table>
   </div>
 
-  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="section-title" id="section-fuling-platform">
     <span class="icon" style="background: var(--accent);"></span>
     涪陵区招标信息发布平台全览
     <span class="sub">涪陵区不止一个发布平台，多平台联动发布</span>
+    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
   </div>
 
   <div class="table-wrap">
@@ -447,6 +473,7 @@
     <span class="icon" style="background: var(--accent);"></span>
     重庆涪陵区专题：最近7天招标公告
     <span class="sub">涪陵区暂无直接以"智能体"命名的项目，以下为区内近期相关公告</span>
+    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
   </div>
 
   <div class="fuling-tip">
@@ -519,12 +546,12 @@
     </table>
   </div>
 
-  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="section-title" id="section-ai">
     <span class="icon"></span>
     全国智能体招标公告（最近7天）
     <span class="sub">按公告发布时间排序</span>
+    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
   </div>
 
   <div class="filter-bar">
@@ -558,12 +585,12 @@
     </table>
   </div>
 
-  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="section-title" id="section-operator">
     <span class="icon" style="background: var(--warning);"></span>
     适合运营商（中国电信等）投标的项目
     <span class="sub">信息化系统、智慧园区、智能体平台等运营商主营业务相关</span>
+    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
   </div>
 
   <div class="notice" style="background: #eef2ff; border-color: #c7d2fe; color: #3730a3;">
@@ -661,7 +688,6 @@
     </table>
   </div>
 
-  <div class="back-top"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></div>
 
   <div class="footer">
     数据整理时间：2026年9月2日 09:00（定时任务自动更新）｜ 信息仅供参考，以官方公告为准<br>
