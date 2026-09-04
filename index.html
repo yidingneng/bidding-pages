@@ -332,13 +332,13 @@
 <div class="container">
 
   <div class="stats">
+    <a class="stat-card" onclick="document.getElementById('section-fuling-platform').scrollIntoView({behavior:'smooth',block:'start'})">
+      <div class="num">5</div>
+      <div class="label">招标网站导航（平台全览）</div>
+    </a>
     <a class="stat-card" onclick="document.getElementById('section-fuling-it').scrollIntoView({behavior:'smooth',block:'start'})">
       <div class="num">4</div>
       <div class="label">涪陵区软件信息技术类项目</div>
-    </a>
-    <a class="stat-card" onclick="document.getElementById('section-fuling-platform').scrollIntoView({behavior:'smooth',block:'start'})">
-      <div class="num">5</div>
-      <div class="label">涪陵区发布平台</div>
     </a>
     <a class="stat-card" onclick="document.getElementById('section-ai').scrollIntoView({behavior:'smooth',block:'start'})">
       <div class="num">21</div>
@@ -348,6 +348,58 @@
       <div class="num">7</div>
       <div class="label">运营商高度适配项目</div>
     </a>
+  </div>
+
+  <div class="section-title" id="section-fuling-platform">
+    <span class="icon" style="background: var(--accent);"></span>
+    招标网站导航（一键直达）
+    <span class="sub">涪陵区及全国招标信息发布平台，点击网址直接访问</span>
+    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>平台名称</th>
+          <th>网址</th>
+          <th>特点</th>
+          <th>建议</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="project-name">重庆市公共资源交易网-涪陵区分站（主平台）</td>
+          <td><a class="link" href="https://www.cqggzy.com/fulingweb/" target="_blank">cqggzy.com/fulingweb ↗</a></td>
+          <td>涪陵区政府采购、工程招标官方首发平台，含采购公告/答疑变更/结果公告/单一来源/保证金退还板块</td>
+          <td><strong>每日必查</strong>，重点盯采购公告+答疑变更</td>
+        </tr>
+        <tr>
+          <td class="project-name">重庆市政府采购网（区县板块）</td>
+          <td><a class="link" href="https://www.ccgp-chongqing.gov.cn/" target="_blank">ccgp-chongqing.gov.cn ↗</a></td>
+          <td>全市政府采购法定发布平台，涪陵区（FLQ）项目同步发布，可筛选区县级</td>
+          <td>补充查漏，可检索"涪陵"关键词</td>
+        </tr>
+        <tr>
+          <td class="project-name">中国政府采购网（国家级）</td>
+          <td><a class="link" href="http://www.ccgp.gov.cn/cggg/dfgg/" target="_blank">ccgp.gov.cn ↗</a></td>
+          <td>财政部主办，涪陵区公开招标项目在此同步</td>
+          <td>用于交叉验证、回溯历史公告</td>
+        </tr>
+        <tr>
+          <td class="project-name">涪陵区人民政府网（公示公告）</td>
+          <td><a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/" target="_blank">fl.gov.cn 公示公告 ↗</a></td>
+          <td>医院院内采购、比选、遴选等非政采项目常在此发布</td>
+          <td>适合运营商关注医院等企事业单位自主采购</td>
+        </tr>
+        <tr>
+          <td class="project-name">中国招标网 / 采购与招标网</td>
+          <td><a class="link" href="https://www.bidchance.com/" target="_blank">bidchance.com ↗</a></td>
+          <td>聚合全国各省市招标信息，含央企、国企、医院自主采购</td>
+          <td>适合发现全国智能体、智慧园区等潜在商机</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="section-title" id="section-fuling-it">
@@ -413,61 +465,9 @@
           <td>          <a class="link" href="https://www.cqggzy.com/fulingweb/xxhz/014005/014005002/20260806/1661458674541178880.html" target="_blank">涪陵区交易网 ↗</a></td>
         </tr>
       </tbody>
-    </table>
+</table>
   </div>
 
-
-  <div class="section-title" id="section-fuling-platform">
-    <span class="icon" style="background: var(--accent);"></span>
-    涪陵区招标信息发布平台全览
-    <span class="sub">涪陵区不止一个发布平台，多平台联动发布</span>
-    <span class="back-top-inline"><a onclick="window.scrollTo({top:0,behavior:'smooth'})">返回顶部</a></span>
-  </div>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>平台名称</th>
-          <th>网址</th>
-          <th>特点</th>
-          <th>建议</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="project-name">重庆市公共资源交易网-涪陵区分站（主平台）</td>
-          <td><a class="link" href="https://www.cqggzy.com/fulingweb/" target="_blank">cqggzy.com/fulingweb ↗</a></td>
-          <td>涪陵区政府采购、工程招标官方首发平台，含采购公告/答疑变更/结果公告/单一来源/保证金退还板块</td>
-          <td><strong>每日必查</strong>，重点盯采购公告+答疑变更</td>
-        </tr>
-        <tr>
-          <td class="project-name">重庆市政府采购网（区县板块）</td>
-          <td><a class="link" href="https://www.ccgp-chongqing.gov.cn/" target="_blank">ccgp-chongqing.gov.cn ↗</a></td>
-          <td>全市政府采购法定发布平台，涪陵区（FLQ）项目同步发布，可筛选区县级</td>
-          <td>补充查漏，可检索"涪陵"关键词</td>
-        </tr>
-        <tr>
-          <td class="project-name">中国政府采购网（国家级）</td>
-          <td><a class="link" href="http://www.ccgp.gov.cn/cggg/dfgg/" target="_blank">ccgp.gov.cn ↗</a></td>
-          <td>财政部主办，涪陵区公开招标项目在此同步</td>
-          <td>用于交叉验证、回溯历史公告</td>
-        </tr>
-        <tr>
-          <td class="project-name">涪陵区人民政府网（公示公告）</td>
-          <td><a class="link" href="http://www.fl.gov.cn/zwxx_206/gsgg/" target="_blank">fl.gov.cn 公示公告 ↗</a></td>
-          <td>医院院内采购、比选、遴选等非政采项目常在此发布</td>
-          <td>适合运营商关注医院等企事业单位自主采购</td>
-        </tr>
-        <tr>
-          <td class="project-name">中国招标网 / 采购与招标网</td>
-          <td><a class="link" href="https://www.bidchance.com/" target="_blank">bidchance.com ↗</a></td>
-          <td>聚合全国各省市招标信息，含央企、国企、医院自主采购</td>
-          <td>适合发现全国智能体、智慧园区等潜在商机</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
   <div class="section-title">
     <span class="icon" style="background: var(--accent);"></span>
